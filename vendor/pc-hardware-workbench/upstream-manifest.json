@@ -1,0 +1,139 @@
+{
+    "repository":  "https://github.com/Feng23-feng/pc-hardware-workbench",
+    "commit":  "dc5a46891f36b50028f04c492f1e08e94d17604b",
+    "files":  [
+                  {
+                      "path":  "scripts/collect-windows.ps1",
+                      "upstreamPath":  "skill/pc-hardware-workbench/scripts/collect-windows.ps1",
+                      "sha256":  "46C3F87AAC40AA5DD2C53951F88C0F61C4D4A26632FDE3CC2E5B6546EF619A0A",
+                      "gitBlob":  "d36ac1a4fd003e5cef14712f5520d683a458f4a9",
+                      "bytes":  90758
+                  },
+                  {
+                      "path":  "scripts/device-identity.ps1",
+                      "upstreamPath":  "skill/pc-hardware-workbench/scripts/device-identity.ps1",
+                      "sha256":  "505CFC180A53FD3D5A475B030C2BD3101E37D0FB741AFEFB6BE2D7732571241D",
+                      "gitBlob":  "3feeac1b3978dd8e739e663269bc2363b254dc47",
+                      "bytes":  11996
+                  },
+                  {
+                      "path":  "scripts/inventory-context.ps1",
+                      "upstreamPath":  "skill/pc-hardware-workbench/scripts/inventory-context.ps1",
+                      "sha256":  "5FE03C411AFD0549E91820E1BD9591B549413DF84DDD9E5B49C3CB92871193C2",
+                      "gitBlob":  "692f1e59e2521a94d41a16e4c58b124d23242bd0",
+                      "bytes":  14469
+                  },
+                  {
+                      "path":  "scripts/local-path-safety.ps1",
+                      "upstreamPath":  "skill/pc-hardware-workbench/scripts/local-path-safety.ps1",
+                      "sha256":  "EC98D8F2B9E56713AB0C1C488E0729EE271217829A41ECE4EDB539A8D6D43CBE",
+                      "gitBlob":  "8d017f5fd707a8614571f97c7fb6e47faf77c17d",
+                      "bytes":  4297
+                  },
+                  {
+                      "path":  "scripts/system-native.cs",
+                      "upstreamPath":  "skill/pc-hardware-workbench/scripts/system-native.cs",
+                      "sha256":  "C03EE4DA5A678B4A244A38FFDCD8A9B1CD2511FD3B3FBF89D027BA86C150281C",
+                      "gitBlob":  "082ac8894b8a8f2eb0dec22e688b318a83cbaf03",
+                      "bytes":  11000
+                  },
+                  {
+                      "path":  "scripts/storage-native.cs",
+                      "upstreamPath":  "skill/pc-hardware-workbench/scripts/storage-native.cs",
+                      "sha256":  "DE83063C4E1B1925A679C1F1AD7501B60EBCEC0598239C40C11F2A12BDCA2358",
+                      "gitBlob":  "b533448d0f44f3731a6bd93c31e8d318c382b6f2",
+                      "bytes":  12648
+                  },
+                  {
+                      "path":  "scripts/display-native.cs",
+                      "upstreamPath":  "skill/pc-hardware-workbench/scripts/display-native.cs",
+                      "sha256":  "F8B08934234232132EA2017FA156F9DF06EEF28B68E7BF537DB6D2B8610ACA53",
+                      "gitBlob":  "6bb3f2f06e71f9101d3426d80eda37858609700f",
+                      "bytes":  25125
+                  },
+                  {
+                      "path":  "scripts/run-evidence-pipeline.ps1",
+                      "upstreamPath":  "skill/pc-hardware-workbench/scripts/run-evidence-pipeline.ps1",
+                      "sha256":  "21B235149F9C6AFA31482EF0C0F6D7312A4D56178FCB37079AEA94179822B5BC",
+                      "gitBlob":  "c6156700a2ab7a25969b03fea5fb0cdf71f076d0",
+                      "bytes":  25417
+                  },
+                  {
+                      "path":  "scripts/analyze-telemetry.ps1",
+                      "upstreamPath":  "skill/pc-hardware-workbench/scripts/analyze-telemetry.ps1",
+                      "sha256":  "B06B0825A41DFBD8C279BB39D40E1EAB94C5DE973AECEC45C5F28C8A38C87E33",
+                      "gitBlob":  "8db069998adcbacf54817b16dbe1dfd1c1528b3c",
+                      "bytes":  64303
+                  },
+                  {
+                      "path":  "scripts/normalize-telemetry.ps1",
+                      "upstreamPath":  "skill/pc-hardware-workbench/scripts/normalize-telemetry.ps1",
+                      "sha256":  "5B10D2E87D28504EB1C6790D3C7FE66DB418A7765C611FAA6F8DD38E40FFD9F9",
+                      "gitBlob":  "d5d8fb7e4a6550a1e2cb61a1fdd75669eb8b44a8",
+                      "bytes":  31313
+                  },
+                  {
+                      "path":  "scripts/render-telemetry-chart.ps1",
+                      "upstreamPath":  "skill/pc-hardware-workbench/scripts/render-telemetry-chart.ps1",
+                      "sha256":  "FB106568F5CFDF9DC38C06BF32871408F277AB86C0A1510D61C5B8308A498E5E",
+                      "gitBlob":  "9251578f75b5911bf2808af7523fc18e5440c960",
+                      "bytes":  23114
+                  },
+                  {
+                      "path":  "assets/evidence-card-template.html",
+                      "upstreamPath":  "skill/pc-hardware-workbench/assets/evidence-card-template.html",
+                      "sha256":  "6C1497BA4E89FDDC9BB67DF5615FB856ABF102CD1928D7D3DFF7A014FA3A6CE3",
+                      "gitBlob":  "f146807b3972168a1c22b3c8c1425d960bf8e09c",
+                      "bytes":  6354
+                  },
+                  {
+                      "path":  "tests/run-device-identity-tests.ps1",
+                      "upstreamPath":  "skill/pc-hardware-workbench/tests/run-device-identity-tests.ps1",
+                      "sha256":  "5B3F17D1E0D04F326E68D14442D476D89A6EFADEC47EA52082026162A2CEBA1A",
+                      "gitBlob":  "738c7e9f327a1db129009872c8fee478eeb8c46b",
+                      "bytes":  17575
+                  },
+                  {
+                      "path":  "tests/run-inventory-context-tests.ps1",
+                      "upstreamPath":  "skill/pc-hardware-workbench/tests/run-inventory-context-tests.ps1",
+                      "sha256":  "ABA273AC1DD41FC7617271ED48FB1C3B026A4DA6189EEED818AC2C30EAD1D9B3",
+                      "gitBlob":  "c70a3725ff3d676777be10f6e03d2604fd66e446",
+                      "bytes":  10334
+                  },
+                  {
+                      "path":  "tests/run-telemetry-analysis-tests.ps1",
+                      "upstreamPath":  "skill/pc-hardware-workbench/tests/run-telemetry-analysis-tests.ps1",
+                      "sha256":  "5A63F98B199A80A8CBFEEFB5EBB1F80D31050FF25DFAC01F4B93E349545666F6",
+                      "gitBlob":  "8f785bb0b31adbbe38e6a0aac887f8529340f6ed",
+                      "bytes":  15814
+                  },
+                  {
+                      "path":  "tests/run-telemetry-normalization-tests.ps1",
+                      "upstreamPath":  "skill/pc-hardware-workbench/tests/run-telemetry-normalization-tests.ps1",
+                      "sha256":  "F8F02A22EF0CEA999F18FEEF0761D6F85499E29AA793EEA2188E191F6393D1F0",
+                      "gitBlob":  "ed2d3fdccb794002e59618d8189c525b95705b75",
+                      "bytes":  24936
+                  },
+                  {
+                      "path":  "tests/run-telemetry-chart-tests.ps1",
+                      "upstreamPath":  "skill/pc-hardware-workbench/tests/run-telemetry-chart-tests.ps1",
+                      "sha256":  "E892C4E172C74A5DBBEA6804FB2B13508290E209732985F4EE7C45493C19A74F",
+                      "gitBlob":  "51080c18bf120aa16da1c7a45ea361fca3d16098",
+                      "bytes":  12434
+                  },
+                  {
+                      "path":  "tests/run-evidence-pipeline-tests.ps1",
+                      "upstreamPath":  "skill/pc-hardware-workbench/tests/run-evidence-pipeline-tests.ps1",
+                      "sha256":  "25CCF730795ECF079BCF4F9051D79716437A66619C37DA42BF6E3BEC26829E48",
+                      "gitBlob":  "6b1cfab254d1d6c910d2a066e5a89da45767beab",
+                      "bytes":  8250
+                  },
+                  {
+                      "path":  "LICENSE",
+                      "upstreamPath":  "LICENSE",
+                      "sha256":  "8428B61D971BAD48C6D4F22CA3188DCE3AE3C32AD0076AF5B4B2252F4D2767C0",
+                      "gitBlob":  "6f6be231796d4810274e9d8d0bbfe0849726939c",
+                      "bytes":  1089
+                  }
+              ]
+}

@@ -15,6 +15,8 @@
 | 想查看 Windows 隐藏的电源设置 | 安装 Power Settings Explorer，并显示处理器的隐藏电源选项 |
 | 想了解显卡、搜索、浏览器或 Steam 的设置影响 | 说明现有调优选项的改动与副作用，按确认的范围执行 |
 | 想更换华硕或联想的控制软件 | 协助检查适配情况，提供 G-Helper 或 Lenovo Legion Toolkit 的替换流程 |
+| 想了解电脑配置和电池情况 | 只读查看 CPU、显卡、内存、磁盘、显示器和电池等系统可读取的信息 |
+| 想知道调整有没有效果 | 分析 HWiNFO / PresentMon 等兼容 CSV 日志，对比温度、功耗、帧率等已记录指标，生成本地图表报告 |
 | 调整后想恢复 | 利用备份和撤销脚本恢复相关配置，并在重启后检查结果 |
 
 **PPKG 是什么？** 可以把它理解为 Windows 的一份配置包。本项目附带的包用于调整处理器电源策略，例如插电游戏时更积极地保持性能、使用电池时更偏向节能。它不刷 BIOS，也不进行超频。
@@ -50,6 +52,8 @@ git clone https://github.com/saoye30/windows-laptop-performance-tuning.git
 - “我只想检查 PPKG 适配，不要改 Windows 更新、搜索、浏览器和 Steam。”
 - “帮我判断这台华硕笔记本能不能用 G-Helper，先不要卸载任何软件。”
 - “我想撤销上次调整，请先找到备份，再说明恢复步骤。”
+- “只查看我的电脑配置和电池情况，隐藏设备标识，不修改设置。”
+- “这里有调整前后的两份监控 CSV，帮我比较温度、功耗和流畅度；数据不能比较时请说明原因。”
 
 ### 4. 确认方案后再调整
 
@@ -115,6 +119,38 @@ powershell -NoProfile -ExecutionPolicy Bypass -File ".\scripts\install_ppkg.ps1"
 
 正式安装请在完成适配检查、核验配置包并确认方案后进行。详细流程见 [技能说明](<SKILL.md>)。
 
+## 查看配置与比较调整效果
+
+这两项功能可以单独使用，不需要先安装 PPKG，也不会触发系统调优。硬件清单适合了解现状，监控日志对比适合回答“这次改动到底有没有帮助”。
+
+### 查看电脑配置
+
+在项目根目录打开普通 PowerShell：
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File ".\vendor\pc-hardware-workbench\scripts\collect-windows.ps1" -Format Markdown -RedactIdentifiers
+```
+
+它会查看系统可读取的硬件信息，隐藏部分设备标识，不修改系统或硬件设置。采集时可能生成临时电池报告或编译本地查询代码；若系统已有 NVIDIA 查询工具，还会读取瞬时数据。缺失读数不代表设备不存在，硬件清单也不能直接证明卡顿原因。无需为了获得报告先安装监控工具或授予管理员权限。
+
+### 对比两次使用记录
+
+先用你信任的监控工具记录同一工作负载，导出调整前、调整后两份 CSV。支持 HWiNFO、PresentMon 和结构兼容的导出；具体取决于文件列名、单位及时间信息。项目不包含这些第三方工具，也不会自动安装或启动压测。
+
+保持同一游戏场景、画质、供电和厂商模式，记录相同时间段；每轮尽量只改一个变量。如果一次改了多组设置，只能比较这一整组的效果。
+
+然后告诉助手文件位置，或运行以下示例（请替换成实际路径和场景）：
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File ".\vendor\pc-hardware-workbench\scripts\run-evidence-pipeline.ps1" -BaselinePath "C:\Measurements\before.csv" -CandidatePath "C:\Measurements\after.csv" -OutputDirectory "C:\Measurements\reports" -Workload "同一游戏同画质固定场景，插电平衡模式" -Change "本次实际修改的设置" -HideFileName
+```
+
+程序在输出目录中创建一个新的结果文件夹，包含可用浏览器打开的 HTML 报告、对比图和数据汇总，不覆盖两份输入日志。只有一份日志时，可以省略 `-CandidatePath`，先建立基线。
+
+**报告生成成功不等于优化成功。** 助手会检查数据是否可比，说明温度、功耗与流畅度的取舍，再建议保留、恢复或重新测量。没有帧率记录就不能声称帧率提升，只有短时间功耗也不能直接推算续航；一次短测更不能保证长期稳定。
+
+所有报告默认留在本地。隐藏文件名或设备标识不等于完全匿名，分享前仍需检查。详细用法见 [硬件检查与效果验证](<references/hardware-evidence.md>)。
+
 ## 如何恢复原来的设置
 
 正式安装会在桌面创建名称类似 `PowerPPKG_Backup_日期-时间` 的备份目录，保存电源配置、相关记录和生成的撤销脚本。脚本还会尝试创建系统还原点，但是否成功取决于系统保护设置等条件。
@@ -148,6 +184,25 @@ powershell -NoProfile -ExecutionPolicy Bypass -File ".\scripts\install_ppkg.ps1"
 ### 遇到问题怎么反馈？
 
 可以在 [Issues](https://github.com/saoye30/windows-laptop-performance-tuning/issues) 中描述 Windows 版本、电脑型号、CPU、选择的调整项，以及报错信息。提交日志前请检查并隐藏用户名、本地个人路径等隐私信息，不要上传整个系统备份目录。
+
+## 模块来源与许可
+
+硬件采集和离线日志对比选用 [PC Hardware Workbench](https://github.com/Feng23-feng/pc-hardware-workbench) 的部分模块，固定于提交 `dc5a468`，保留原始代码和 [MIT 许可证](<vendor/pc-hardware-workbench/LICENSE>)。只集成所需模块，不包含其完整技能或超频路线；版本、文件与验证信息见 [上游模块说明](<vendor/pc-hardware-workbench/UPSTREAM.md>)。
+
+单变量、区分设定与实测、测试中断不算通过等实验记录方法参考了 [AI-PC-Overclocking](https://github.com/BOBOEMS/AI-PC-Overclocking/tree/2b437d0e273ecc5cf2b87df1702541f2bf9ced4b)。本项目未引入它的负压控制、硬件参数预设、管理员计划任务或压测执行代码。
+
+这些许可仅适用于相应上游代码，不将本仓库附带的 OEM 配置包或其他第三方软件自动纳入 MIT 许可。
+
+## 开发与验证
+
+修改后可在项目根目录运行：
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File ".\scripts\selfcheck.ps1"
+powershell -NoProfile -ExecutionPolicy Bypass -File ".\tests\run-readonly-module-tests.ps1"
+```
+
+前者检查原有脚本；后者检查引入文件的完整性、语法和离线样例，包括日志分析、标准化、图表与对比流程，不采集当前电脑硬件，也不执行压测或系统调优。测试通过不代表已在所有机型实测。
 
 ## 进一步阅读
 

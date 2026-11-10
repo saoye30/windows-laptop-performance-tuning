@@ -1,0 +1,4 @@
+# Preserve vendored checkout bytes, including upstream CRLF line endings.
+/vendor/** -text
+# Accept CRLF while still detecting trailing spaces and tabs.
+* whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

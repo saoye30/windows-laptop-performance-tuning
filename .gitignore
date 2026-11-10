@@ -1,0 +1,9 @@
+# Local measurement reports and backups; keep private data out of Git.
+/reports/
+/artifacts/
+/measurements/
+/PowerPPKG_Backup_*/
+/SystemTune_Backup_*/
+/OEMSwitch_Backup_*/
+__pycache__/
+*.pyc

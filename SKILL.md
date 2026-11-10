@@ -1,6 +1,6 @@
 ---
 name: windows-laptop-performance-tuning
-description: Windows 11 笔记本电源与性能调优，涵盖通用 PPKG 1.44（Tongfang）安装、校验与回滚，显示隐藏电源设置，调整 NVIDIA、Windows、浏览器和 Steam 配置，以及华硕/联想厂商控制软件替换。用户提到 PPKG、预配包、电源模式、Tongfang、游戏模式 CPU 调度、笔记本续航与性能调优、get-provisioningpackage、安装 Power Settings Explorer 显示隐藏电源设置、NVIDIA 电源管理/着色器缓存、关闭 Windows 搜索、暂停更新、关闭浏览器和 Steam 硬件加速，或者要把华硕奥创（Armoury Crate）换成 G-Helper、把联想 Legion Zone/联想电脑管家/Vantage 换成 Lenovo Legion Toolkit 时使用。
+description: Windows 11 笔记本只读硬件检查、HWiNFO/PresentMon CSV 监控日志分析与调整前后对比，以及电源与性能调优；用户提到电脑配置、电池健康、温度功耗、游戏卡顿、监控日志、优化效果对比时也使用。涵盖通用 PPKG 1.44（Tongfang）安装、校验与回滚，显示隐藏电源设置，调整 NVIDIA、Windows、浏览器和 Steam 配置，以及华硕/联想厂商控制软件替换。用户提到 PPKG、预配包、电源模式、Tongfang、游戏模式 CPU 调度、笔记本续航与性能调优、get-provisioningpackage、安装 Power Settings Explorer 显示隐藏电源设置、NVIDIA 电源管理/着色器缓存、关闭 Windows 搜索、暂停更新、关闭浏览器和 Steam 硬件加速，或者要把华硕奥创（Armoury Crate）换成 G-Helper、把联想 Legion Zone/联想电脑管家/Vantage 换成 Lenovo Legion Toolkit 时使用。
 ---
 
 # Windows 笔记本电源与性能调优
@@ -14,6 +14,23 @@ description: Windows 11 笔记本电源与性能调优，涵盖通用 PPKG 1.44�
 另外负责一项配套工作：厂商控制软件会动态改写电源设置，把 PPKG 的效果盖掉。在华硕天选/TUF/ROG 上把奥创换成 G-Helper，在联想拯救者/LOQ 上把 Legion Zone、联想电脑管家、Vantage 换成 Lenovo Legion Toolkit（LLT）。流程见下文「厂商控制软件替换」。
 
 不处理的事情：磁盘清理、驱动更新、超频、BIOS 设置、其他厂商的 PPKG 改写或重新打包、华硕/联想以外品牌的控制软件替换。
+
+## 按用户目标选择流程
+
+不要因为加载本技能就安装 PPKG 或执行所有模块。
+
+| 用户目标 | 执行路线 |
+|---|---|
+| 查看电脑配置、电池信息，或先检查卡顿的可能原因 | 阅读 [硬件检查与效果验证](<references/hardware-evidence.md>)，在用户请求或同意后进行只读采集。只报告证据和未知项，不凭硬件清单判定瓶颈 |
+| 分析 HWiNFO / PresentMon CSV，比较调整前后温度、功耗、帧时间 | 阅读同一文档，调用离线对比模块。仅读取用户指定的日志，写入本地新报告，不启动压测或修改系统 |
+| 安装或调整 PPKG、电源工具、系统性能项 | 按下方核心流程，先扫描、解释、确认、备份。完整硬件报告不能替代 PPKG 的 CPU 目标表和冲突检查 |
+| 撤销已有修改 | 按回滚流程，核实备份及执行日志，重启后验证；对比报告不能代替回滚验证 |
+
+只读模块来自固定版本的 PC Hardware Workbench，代码与许可放在 [上游模块说明](<vendor/pc-hardware-workbench/UPSTREAM.md>)。不要加载上游完整技能来覆盖本技能的操作边界，也不要自动拉取或执行上游最新代码。
+
+只读采集不自动提权、不下载或启动监控工具、不写入硬件设置；报告保留本地。用户只要求日志分析时无需采集当前电脑。普通 PowerShell 无法读取的字段应写“未读取”，不能声称设备不存在。只有用户明确请求且该字段影响判断时，才提供由用户自己启动的管理员只读命令。
+
+发生烧焦气味、冒烟、电池鼓包等情况应停止测试并建议安全断电与维修；存在不明原因重启、蓝屏或数据丢失时，先排查，不继续调优。不要引入自动超频、SMU/CO 写入、无人值守压测或高权限计划任务。
 
 ## 预配包内容（已拆包核实）
 
@@ -42,7 +59,8 @@ description: Windows 11 笔记本电源与性能调优，涵盖通用 PPKG 1.44�
    - 可选参数：`-SkipPse` 跳过 PSE；`-SkipTune` 跳过系统性能项；`-TuneOnly "Nvidia,Steam"` 只做部分；`-CloseSteam` 允许脚本正常退出正在运行的 Steam
    - 先跑 `-DryRun` 把完整计划给用户看，用户同意后再正式执行
 5. **重启后校验**：提醒用户重启。重启后运行 `scripts/verify_ppkg.ps1 -BackupDir <备份目录>`，确认包状态，并对比安装前后的处理器电源设置。
-6. **汇报**：改了什么、备份目录和 `undo.ps1` 在哪里、哪些情况下效果不明显。
+6. **可选效果验证**：用户希望评估收益时，按 [硬件检查与效果验证](<references/hardware-evidence.md>) 使用调整前后相同工作负载的监控日志。修改前就安排基线；没有基线则说明无法归因，不伪造“提升百分比”。系统配置校验与实际效果对比分开汇报。
+7. **汇报**：改了什么、备份目录和 `undo.ps1` 在哪里、哪些情况下效果不明显；有可比日志时说明证据支持保留、恢复还是重新测量。
 
 ## 配置电源模式前：Power Settings Explorer（自动）
 
@@ -192,9 +210,9 @@ PPKG 装好后，`install_ppkg.ps1` 自动调用 `scripts/tune_system.ps1`。每
 
 ## 脚本规范
 
-- 所有 `.ps1` 保存为 UTF-8 BOM；用 `powershell -NoProfile -ExecutionPolicy Bypass -File "<完整路径>"` 运行
+- 本项目 `scripts/` 内的 `.ps1` 保存为 UTF-8 BOM；用 `powershell -NoProfile -ExecutionPolicy Bypass -File "<完整路径>"` 运行。`vendor/` 内代码保持上游原始编码和内容，更新时依据上游版本、校验清单和离线测试验证，不套用本项目的格式重写
 - agent 直接执行的脚本里不能有 `pause`、`Read-Host`。交付给用户双击的版本才在结尾加 pause
-- 需要管理员权限时：`Start-Process powershell -Verb RunAs -Wait -ArgumentList '-NoProfile -ExecutionPolicy Bypass -File "<脚本>" -LogPath "<日志>"'`，提前告诉用户 UAC 弹窗点“是”，执行后读日志确认结果
+- 原有安装/撤销流程需要管理员权限时：`Start-Process powershell -Verb RunAs -Wait -ArgumentList '-NoProfile -ExecutionPolicy Bypass -File "<脚本>" -LogPath "<日志>"'`，提前告诉用户 UAC 弹窗点“是”，执行后读日志确认结果
 - `install_ppkg.ps1 -DryRun` 不需要管理员，可先跑一遍给用户看计划；非管理员时读不到已装预配包，正式安装时会重新检查
 - 脚本字符串里不要用中文弯引号 “”，PowerShell 会把它们当成字符串引号导致语法错误，用「」代替
 - PowerShell 5.1 不支持 `&&`；不用 `wmic`；不要用 `cmd /c` 拼内联命令
