@@ -1,0 +1,63 @@
+Intel PPKG Release Note
+-----------------------------------------------------------
+Support list：
+Intel LNL
+Intel ARL/ARL-HX
+Intel MTL		1xxH(Native support)
+Intel RPL-R 	14xxxHX(Native support)
+Intel RPL 	13xxxP,13xxxH,13xxxHK13xxxHX(Native support)
+Intel ADL 	12xxxP,12xxxH,12xxxHK12xxxHX(Just Compatible not for it)
+Intel TGL or later (Just Compatible not for it)
+AMD KRK
+AMD STP
+AMD FRR
+AMD HPT	8xxxU,8xxxH,8xxxHS,8xxxHX(Native support)
+AMD PHX	7xxxU,7xxxH,7xxxHS(Native support)
+AMD DRG	7xxxHX(Just Compatible not for it)
+AMD RMB or later(Just Compatible not for it)
+-----------------------------------------------------------
+Date：2025/4/1
+Version：1.43
+Onwer：JarvanH
+Change：
+1.Remove  thread scheduling
+2.Fix Pcore highest frequency when in game mode
+-----------------------------------------------------------
+Date：2024/12/25
+Version：1.43
+Onwer：JarvanH
+Change：
+1.Support Karken & Lunarlake
+-----------------------------------------------------------
+Date：2024/8/30
+Version：1.42
+Onwer：JarvanH
+Change：
+1.Modify STP GameMode settings
+-----------------------------------------------------------
+Date：2024/8/23
+Version：1.41
+Onwer：JarvanH
+Change：
+1.Change to new framework
+2.Modify GameMode settings for Naraka : Bladepoint
+3.Support MaxPerformanceOverlay
+-----------------------------------------------------------
+Date：2024/2/17
+Version：1.38
+Onwer：JarvanH
+Change：
+1.Change new framework to make PPKG
+-----------------------------------------------------------
+Date：2023/10/16
+Version：1.37
+Onwer：JarvanH
+Change：
+1.Set all cores active when SUT in gaming mode
+-----------------------------------------------------------
+Date：2023/10/5
+Version：1.36
+Onwer：JarvanH
+Change：
+1.First for customer
+
